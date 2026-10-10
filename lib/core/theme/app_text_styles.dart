@@ -5,6 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTextStyles {
   AppTextStyles._();
 
+
+  
+
    
 
   static  TextStyle heading1 = TextStyle(
