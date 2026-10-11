@@ -5,9 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit({required LoginService loginService})
-      : _loginService = loginService,
-        super(const LoginInitial());
+  LoginCubit({required this._loginService}) : super(const LoginInitial());
 
   final LoginService _loginService;
 

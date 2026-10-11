@@ -5,7 +5,7 @@ import '../../../../core/network/dio_client.dart';
 class LoginService {
   final DioClient _dioClient;
 
-  LoginService({required DioClient dioClient}) : _dioClient = dioClient;
+  LoginService({required this._dioClient});
 
   /// Logs in a user using [username] and [password].
   ///
