@@ -1,15 +1,15 @@
 import 'package:e_commerce/core/network/api_exceptions.dart';
-import 'package:e_commerce/features/auth/data/datasource/loginservice.dart' as auth;
+import 'package:e_commerce/features/auth/data/datasource/loginservice.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit({auth.LoginService? loginService})
-      : _loginService = loginService ?? auth.loginService,
+  LoginCubit({required LoginService loginService})
+      : _loginService = loginService,
         super(const LoginInitial());
 
-  final auth.LoginService _loginService;
+  final LoginService _loginService;
 
   Future<void> login({
     required String username,

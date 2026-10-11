@@ -5,8 +5,7 @@ import '../../../../core/network/dio_client.dart';
 class LoginService {
   final DioClient _dioClient;
 
-  LoginService({DioClient? dioClient})
-      : _dioClient = dioClient ?? DioClient.instance;
+  LoginService({required DioClient dioClient}) : _dioClient = dioClient;
 
   /// Logs in a user using [username] and [password].
   ///
@@ -40,18 +39,4 @@ class LoginService {
 
     return data;
   }
-}
-
-/// Top-level singleton helper for convenient access.
-final LoginService loginService = LoginService();
-
-/// Backward-compatible helper matching previous function signature.
-Future<void> login(Map<String, String> body) async {
-  await loginService.loginUser(
-
-    username: body['username'] ?? '',
-    password: body['password'] ?? '',
-    //
-    
-  );
 }

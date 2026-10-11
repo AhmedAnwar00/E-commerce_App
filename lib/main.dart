@@ -1,3 +1,4 @@
+import 'package:e_commerce/core/network/dio_client.dart';
 import 'package:e_commerce/features/auth/data/datasource/loginservice.dart';
 import 'package:e_commerce/features/auth/presentation/viewmodel/login_cubit.dart';
 import 'package:e_commerce/features/auth/presentation/views/login.dart';
@@ -7,11 +8,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/theme/app_theme.dart';
 
 void main() {
-  runApp(const MyApp());
+  final dioClient = DioClient();
+  final loginService = LoginService(dioClient: dioClient);
+  runApp(MyApp(loginService: loginService));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.loginService});
+
+  final LoginService loginService;
 
   @override
   Widget build(BuildContext context) {
