@@ -7,6 +7,10 @@ class AppTextField extends StatelessWidget {
   final IconData? prefixIcon;
   final IconData? suffixIcon;
   final bool obscureText;
+  final TextEditingController? controller;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final VoidCallback? onSuffixPressed;
 
   const AppTextField({
     super.key,
@@ -14,18 +18,32 @@ class AppTextField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.obscureText = false,
+    this.controller,
+    this.keyboardType,
+    this.textInputAction,
+    this.onSuffixPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
+      keyboardType: keyboardType,
+      textInputAction: textInputAction,
       obscureText: obscureText,
       style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: AppTextStyles.body,
         prefixIcon: prefixIcon != null ? Icon(prefixIcon, color: AppColors.primary) : null,
-        suffixIcon: suffixIcon != null ? Icon(suffixIcon, color: AppColors.textSecondary) : null,
+        suffixIcon: suffixIcon != null
+            ? (onSuffixPressed != null
+                ? IconButton(
+                    icon: Icon(suffixIcon, color: AppColors.textSecondary),
+                    onPressed: onSuffixPressed,
+                  )
+                : Icon(suffixIcon, color: AppColors.textSecondary))
+            : null,
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),

@@ -1,3 +1,4 @@
+import 'package:e_commerce/features/auth/presentation/views/login.dart';
 import 'package:flutter/material.dart';
 import 'core/theme/app_theme.dart';
 import 'features/products/presentation/views/products_view.dart';
@@ -14,7 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'E-Commerce',
       theme: AppTheme.light,
-      home: const ProductsView(),
+      home: LoginView(),
+      //const ProductsView(),
       debugShowCheckedModeBanner: false,
     );
   }
