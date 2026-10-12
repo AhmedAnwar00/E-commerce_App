@@ -1,4 +1,5 @@
 import '../../../../core/network/api_endpoints.dart';
+import '../../../../core/network/api_exceptions.dart';
 import '../../../../core/network/dio_client.dart';
 
 /// Service responsible for authentication API calls.
@@ -25,18 +26,34 @@ class LoginService {
     );
 
     final data = Map<String, dynamic>.from(response.data as Map);
+    final accessToken = _authenticationToken(data['accessToken']);
+    final refreshToken = _authenticationToken(data['refreshToken']);
 
-    // Save tokens if available in response
-    final accessToken = data['accessToken']?.toString();
-    final refreshToken = data['refreshToken']?.toString();
-
-    if (accessToken != null && refreshToken != null) {
-      await _dioClient.setTokens(
-        accessToken: accessToken,
-        refreshToken: refreshToken,
+    if (accessToken == null || refreshToken == null) {
+      throw const ApiException(
+        message:
+            'Login failed. Required authentication tokens were not returned.',
       );
     }
 
+    await _dioClient.setTokens(
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    );
+
     return data;
   }
+}
+
+String? _authenticationToken(Object? value) {
+  if (value == null) {
+    return null;
+  }
+
+  final token = value.toString();
+  if (token.trim().isEmpty) {
+    return null;
+  }
+
+  return token;
 }
